@@ -30,8 +30,8 @@ const About = () => {
       <Navbar bg="dark" expand="sm" variant="dark">
         <Container>
           <Nav className="mx-auto">
-            <Nav.Link ><Link to="/">Home</Link></Nav.Link>
-            <Nav.Link ><Link>Store</Link></Nav.Link>
+          <Nav.Link ><Link to="/home">Home</Link></Nav.Link>
+            <Nav.Link ><Link to="/">Store</Link></Nav.Link>
             <Nav.Link ><Link to="/about">About</Link></Nav.Link>
           </Nav>
           <Button onClick={toggleCart} variant="outline-primary">
@@ -51,7 +51,7 @@ const About = () => {
         <Container>
           <Nav className="mx-auto">
             <Navbar.Brand style={{ fontFamily: "Serif", fontSize: "50px" }}>
-              THE GENERICS
+              <b>THE GENERICS</b>
             </Navbar.Brand>
           </Nav>
         </Container>
@@ -64,7 +64,7 @@ const About = () => {
             fontSize: "30px",
           }}
         >
-        About
+        <b>About</b>
         </h1>
         <Row>
          <Col xs={12} md={6} className="text-center">
@@ -119,15 +119,17 @@ const About = () => {
               </h1>
             </Col>
             <Col className="text-end">
-              <a href="https://www.youtube.com/">
+              <div>
+                <a href="https://www.youtube.com/">
                 <FaYoutube size={40} />
-              </a>{" "}
-              <a href="https://www.instagram.com/">
+                </a>{" "}
+                <a href="https://www.instagram.com/">
                 <FaInstagram size={40} />
-              </a>{" "}
-              <a href="https://www.facebook.com/">
+                </a>{" "}
+                <a href="https://www.facebook.com/">
                 <FaFacebook size={40} />
-              </a>
+                </a>
+              </div>
             </Col>
           </Row>
         </Container>

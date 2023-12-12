@@ -1,38 +1,16 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import "./Home.css";
 import { Container, Navbar, Nav, Button, Row, Col } from "react-bootstrap";
-import { FaYoutube, FaInstagram, FaFacebook, FaPlay } from "react-icons/fa";
+import { FaYoutube, FaInstagram, FaFacebook } from "react-icons/fa";
 import Cart from "./Cart";
 import CartProvider from "../Store/CartProvider";
+import AvailableProducts from "./AvailableProducts";
 import CartContext from "../Store/cart-context";
 
-const TourItem = ({ date, city, venue }) => {
-  return (
-    <div className="tour-item">
-      <div className="tour-info">
-        <p>Date: {date}</p>
-        <p>City: {city}</p>
-        <p>Venue: {venue}</p>
-      </div>
-      <Button variant="primary">BUY TICKETS</Button>
-    </div>
-  );
-};
 
-
-const Home = () => {
+const Store = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const cartCtx = useContext(CartContext);
-
-  const tours = [
-    {date: "16 JUL" ,city: "DETROIT, MI" , venue: "DTE ENERGY MUSIC THEATRE"},
-    {date: "19 JUL",city: "TORONTO,ON", venue: "BUDWEISER STAGE"},
-    {date: "22 JUL",city: "BRISTOW, VA", venue: "JIGGY LUBE LIVE"},
-    {date: "29 JUL",city: "PHOENIX, AZ", venue: "AK-CHIN PAVILION"},
-    {date: "2 AUG",city: "LAS VEGAS, NV", venue: "T-MOBILE ARENA"},
-    {date: "7 AUG",city: "CONCORD, CA", venue: "CONCORD PAVILION"}
-  ];
 
 
     let quantity = 0;
@@ -52,7 +30,7 @@ const Home = () => {
       <Navbar bg="dark" expand="sm" variant="dark">
         <Container>
           <Nav className="mx-auto">
-            <Nav.Link ><Link to="/home">Home</Link></Nav.Link>
+          <Nav.Link ><Link to="/home">Home</Link></Nav.Link>
             <Nav.Link ><Link to="/">Store</Link></Nav.Link>
             <Nav.Link ><Link to="/about">About</Link></Nav.Link>
           </Nav>
@@ -78,39 +56,6 @@ const Home = () => {
           </Nav>
         </Container>
       </Navbar>
-      <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              marginTop: "2rem",
-            }}
-          >
-            <div
-              style={{
-                border: "1px solid blue",
-                padding: "1rem",
-              }}
-            >
-              <p>Get out Latest Album</p>
-            </div>
-            <Button
-              variant="outline-primary"
-              size="lg"
-              style={{ 
-                marginTop: "1rem",
-                borderRadius: "50%",
-                width: "50px",
-                height: "50px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-               }}
-            >
-              <FaPlay />
-            </Button>
-          </div>
-          <br></br>
       <Container>
         <h1
           style={{
@@ -119,15 +64,9 @@ const Home = () => {
             fontSize: "30px",
           }}
         >
-          <b>TOURS</b>
-        </h1> 
-
-        {tours.map((tour, index) => (
-        <div key={index} className="tour-line">
-          <TourItem date={tour.date} city={tour.city} venue={tour.venue} />
-        </div>
-      ))}
-
+          <b>Music</b>
+        </h1>
+      <AvailableProducts />  
       </Container>
       {isCartOpen && (
         <Cart
@@ -162,4 +101,4 @@ const Home = () => {
   );
 }
 
-export default Home;
+export default Store;
