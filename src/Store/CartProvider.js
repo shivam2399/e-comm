@@ -35,34 +35,22 @@ const CartProvider = (props) => {
     },
   ];
 
-  const addItemToCartHandler = (id) => {
-    const selectedProduct = availableProducts.find((product) => product.id === id);
-    const cartItem = items.find((item) => item.id === id);
-    if (cartItem) {
-      const updatedItems = items.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      );
-      setItems(updatedItems);
+  const addItemToCartHandler = item => {
+    setItems([...items, item]);
+  }
+
+  const removeItemFromCartHandler = id => {
+    const itemIndex = items.findIndex(item => item.id === id);
+    const item = items[itemIndex];
+
+    const newItems = [...items];
+    if(item.quantity > 1) {
+        newItems[itemIndex] = {...item, quantity: item.quantity - 1};
     } else {
-      setItems([...items, { ...selectedProduct, quantity: 1 }]);
-    }
-  };
-
-  const removeItemFromCartHandler = (id) => {
-    const itemIndex = items.findIndex((item) => item.id === id);
-
-    if (itemIndex !== -1) {
-      const item = items[itemIndex];
-      const newItems = [...items];
-      if (item.quantity > 1) {
-        newItems[itemIndex] = { ...item, quantity: item.quantity - 1 };
-      } else {
         newItems.splice(itemIndex, 1);
-      }
-
-      setItems(newItems);
     }
-  };
+    setItems(newItems);
+}
 
   const cartContext = {
     availableItems: availableProducts,

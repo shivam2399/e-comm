@@ -4,23 +4,37 @@ import CartItem from "./CartItem";
 import { Button, Modal } from "react-bootstrap";
 import CartContext from "../Store/cart-context";
 
-function Cart({ cartElements, show, onHide }) {
-  const [cartItems, setCartItems] = useState(cartElements);
-
+function Cart({ show, onHide }) {
   const cartCtx = useContext(CartContext)
 
-  const removeFromCart = (index) => {
-    const updatedCartItems = [...cartItems];
-    updatedCartItems.splice(index, 1);
-    setCartItems(updatedCartItems);
-  };
-
-  const calculateTotal = () => {
-    let total = 0;
-    for (let i = 0; i < cartCtx.items.length; i++) {
-      total += cartCtx.items[i].price * cartCtx.items[i].quantity;
+  const addToCartHandler = (item) => {
+    const existingCartItem = cartCtx.items.find((cartItem) => cartItem.id === item.id);
+    if (existingCartItem) {
+      existingCartItem.quantity += 1;
+    } else {
+      cartCtx.items.push({ ...item, quantity: 1 });
     }
-    return total;
+  };
+  
+  const cartItems = cartCtx.items.map((item) => (
+    <CartItem
+      key={item.id}
+      item={item}
+      id={item.id}
+      name={item.name}
+      price={item.price}
+      quantity={item.quantity}
+      imageUrl={item.imageUrl}
+      onAddToCart={addToCartHandler}
+    />
+  ));
+
+  const totalPrice = cartCtx.items.reduce((totalPrice, item) => {
+    return totalPrice + (parseInt(item.quantity) * item.price);
+  }, 0);
+
+  const purchaseProducts = () => {
+    alert(`Thanks for the purchase. Your total is ₹${totalPrice}`);   
   };
 
   return (
@@ -29,6 +43,7 @@ function Cart({ cartElements, show, onHide }) {
         <Modal.Title style={{ fontFamily: "Badaboom", fontSize: "40px" }}>
           Cart
         </Modal.Title>
+        {console.log(cartCtx.items.length)}
       </Modal.Header>
       <Modal.Body>
         <div className="cart-header d-flex justify-content-between">
@@ -36,27 +51,29 @@ function Cart({ cartElements, show, onHide }) {
           <div className="cart-price-header header-style">Price</div>
           <div className="cart-quantity-header header-style">Quantity</div>
         </div>
-        {cartItems.map((item, index) => (
+        {/* {cartItems.map((item, index) => (
           <CartItem
             key={index}
             item={item}
             index={index}
-            removeFromCart={removeFromCart}
+            removeFromCart={C}
+            handleQuantityChange={handleQuantityChange}
           />
-        ))}
+        ))} */}
+        {cartItems}
         <div className="cart-total">
           <h4 style={{ textAlign: "right" }}>
-            <b>Total: ₹{calculateTotal()}</b>
+            <b>Total: ₹{totalPrice}</b>
           </h4>
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={onHide}>
-          Close
+        <Button variant="primary" onClick={purchaseProducts}>
+          PURCHASE
         </Button>
       </Modal.Footer>
     </Modal>
-  );
+  );    
 }
 
 export default Cart;

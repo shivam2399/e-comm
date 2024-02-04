@@ -51,16 +51,17 @@ const Home = () => {
     <CartProvider>
       <Navbar bg="dark" expand="sm" variant="dark">
         <Container>
-          <Nav className="mx-auto">
+        <Nav className="mx-auto">
             <Nav.Link ><Link to="/home">Home</Link></Nav.Link>
             <Nav.Link ><Link to="/">Store</Link></Nav.Link>
             <Nav.Link ><Link to="/about">About</Link></Nav.Link>
+            <Nav.Link><Link to="/contactUs">Contact Us</Link></Nav.Link>
           </Nav>
           <Button onClick={toggleCart} variant="outline-primary">
            <div>
+            Cart
             <span>{quantity}</span>
             </div>
-            Cart
           </Button>
         </Container>
       </Navbar>
