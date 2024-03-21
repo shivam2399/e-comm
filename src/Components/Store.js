@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Container, Navbar, Nav, Button, Row, Col } from "react-bootstrap";
 import { FaYoutube, FaInstagram, FaFacebook } from "react-icons/fa";
@@ -7,29 +7,22 @@ import CartProvider from "../Store/CartProvider";
 import AvailableProducts from "./AvailableProducts";
 import CartContext from "../Store/cart-context";
 
-
 const Store = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const [quantity, setQuantity] = useState(0);
+
   const cartCtx = useContext(CartContext);
-
-
-    let quantity = 0;
-    cartCtx.items.forEach((item) => {
-        quantity += Number(item.quantity);
-    });
-  
 
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
   };
 
-  
-
   return (
     <CartProvider>
       <Navbar bg="dark" expand="sm" variant="dark">
         <Container>
-        <Nav className="mx-auto">
+          <Nav className="mx-auto">
             <Nav.Link>
               <Link to="/home">Home</Link>
             </Nav.Link>
@@ -42,10 +35,13 @@ const Store = () => {
             <Nav.Link>
               <Link to="/contactUs">Contact Us</Link>
             </Nav.Link>
+            <Nav.Link>
+              <Link to="/login">Login</Link>
+            </Nav.Link>
           </Nav>
           <Button onClick={toggleCart} variant="outline-primary">
-           <div>
-            <span>{quantity}</span>
+            <div>
+              <span>{quantity}</span>
             </div>
             Cart
           </Button>
@@ -59,6 +55,7 @@ const Store = () => {
       >
         <Container>
           <Nav className="mx-auto">
+            {console.log(cartCtx.getTotalItems)}
             <Navbar.Brand style={{ fontFamily: "Serif", fontSize: "50px" }}>
               <b>THE GENERICS</b>
             </Navbar.Brand>
@@ -75,13 +72,10 @@ const Store = () => {
         >
           <b>Music</b>
         </h1>
-      <AvailableProducts />  
+        <AvailableProducts />
       </Container>
       {isCartOpen && (
-        <Cart
-          show={isCartOpen}
-          onHide={() => setIsCartOpen(false)}
-        />
+        <Cart show={isCartOpen} onHide={() => setIsCartOpen(false)} />
       )}
       <footer>
         <Container fluid style={{ backgroundColor: "skyblue", width: "100%" }}>
@@ -105,9 +99,9 @@ const Store = () => {
             </Col>
           </Row>
         </Container>
-      </footer> 
+      </footer>
     </CartProvider>
   );
-}
+};
 
 export default Store;

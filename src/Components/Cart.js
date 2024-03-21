@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import "./Cart.css";
 import CartItem from "./CartItem";
 import { Button, Modal } from "react-bootstrap";

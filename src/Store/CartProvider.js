@@ -51,10 +51,14 @@ const CartProvider = (props) => {
     }
     setItems(newItems);
 }
+  const getTotalItems = () => {
+    return items.reduce((total, item) => total + item.quantity, 0)
+  }
 
   const cartContext = {
     availableItems: availableProducts,
     items: items,
+    getTotalItems: getTotalItems,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
   };

@@ -3,7 +3,7 @@ import { Card, Button } from 'react-bootstrap';
 import CartContext from '../Store/cart-context';
 import { Link } from 'react-router-dom';
 
-function Product({ product, index }) {
+function Product({ product }) {
 
   const cartCtx = useContext(CartContext)
 
