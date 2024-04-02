@@ -6,11 +6,14 @@ import { FaYoutube, FaInstagram, FaFacebook } from "react-icons/fa";
 import Cart from "./Cart";
 import CartProvider from "../Store/CartProvider";
 import CartContext from "../Store/cart-context";
+import AuthContext from "../Store/auth-context";
 import image from '../assets/Damn.png'
+
 
 const About = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const cartCtx = useContext(CartContext);
+  const authCtx = useContext(AuthContext);
 
 
     let quantity = 0;
@@ -30,11 +33,11 @@ const About = () => {
       <Navbar bg="dark" expand="sm" variant="dark">
         <Container>
         <Nav className="mx-auto">
-            <Nav.Link ><Link to="/home">Home</Link></Nav.Link>
-            <Nav.Link ><Link to="/">Store</Link></Nav.Link>
+            <Nav.Link ><Link to="/">Home</Link></Nav.Link>
+            {authCtx.isLoggedIn ?  <Nav.Link ><Link to="/store">Store</Link></Nav.Link> : <Nav.Link ><Link to="/login">Store</Link></Nav.Link>}
             <Nav.Link ><Link to="/about">About</Link></Nav.Link>
             <Nav.Link><Link to="/contactUs">Contact Us</Link></Nav.Link>
-            <Nav.Link><Link to="/login">Login</Link></Nav.Link>
+            {!authCtx.isLoggedIn && <Nav.Link><Link to="/login">Login</Link></Nav.Link>}
           </Nav>
           <Button onClick={toggleCart} variant="outline-primary">
            <div>

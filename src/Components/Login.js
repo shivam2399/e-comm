@@ -1,6 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { Form, Container, Col, Row, Card, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../Store/auth-context'
 
 
 const Login = () => {
@@ -9,6 +10,9 @@ const Login = () => {
     const passwordInputRef = useRef();
 
     const [isLoading, setIsLoading] = useState(false);
+
+    const authCtx = useContext(AuthContext);
+
 
 
 
@@ -47,7 +51,8 @@ const Login = () => {
         })
         .then((data) => {
           localStorage.setItem(data.email, data.idToken);
-          navigate('/')
+          authCtx.login(data.idToken)
+          navigate('/store')
         })
         .catch((err) => {
           alert(err.message)
