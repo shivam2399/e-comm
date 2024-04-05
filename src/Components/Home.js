@@ -21,49 +21,62 @@ const TourItem = ({ date, city, venue }) => {
   );
 };
 
-
 const Home = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const cartCtx = useContext(CartContext);
   const authCtx = useContext(AuthContext);
 
   const tours = [
-    {date: "16 JUL" ,city: "DETROIT, MI" , venue: "DTE ENERGY MUSIC THEATRE"},
-    {date: "19 JUL",city: "TORONTO,ON", venue: "BUDWEISER STAGE"},
-    {date: "22 JUL",city: "BRISTOW, VA", venue: "JIGGY LUBE LIVE"},
-    {date: "29 JUL",city: "PHOENIX, AZ", venue: "AK-CHIN PAVILION"},
-    {date: "2 AUG",city: "LAS VEGAS, NV", venue: "T-MOBILE ARENA"},
-    {date: "7 AUG",city: "CONCORD, CA", venue: "CONCORD PAVILION"}
+    { date: "16 JUL", city: "DETROIT, MI", venue: "DTE ENERGY MUSIC THEATRE" },
+    { date: "19 JUL", city: "TORONTO,ON", venue: "BUDWEISER STAGE" },
+    { date: "22 JUL", city: "BRISTOW, VA", venue: "JIGGY LUBE LIVE" },
+    { date: "29 JUL", city: "PHOENIX, AZ", venue: "AK-CHIN PAVILION" },
+    { date: "2 AUG", city: "LAS VEGAS, NV", venue: "T-MOBILE ARENA" },
+    { date: "7 AUG", city: "CONCORD, CA", venue: "CONCORD PAVILION" },
   ];
 
-
-    let quantity = 0;
-    cartCtx.items.forEach((item) => {
-        quantity += Number(item.quantity);
-    });
-  
+  let quantity = 0;
+  cartCtx.items.forEach((item) => {
+    quantity += Number(item.quantity);
+  });
 
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
   };
 
-  
-
   return (
     <CartProvider>
       <Navbar bg="dark" expand="sm" variant="dark">
         <Container>
-        <Nav className="mx-auto">
-        <Nav.Link ><Link to="/">Home</Link></Nav.Link>
-            {authCtx.isLoggedIn ?  <Nav.Link ><Link to="/store">Store</Link></Nav.Link> : <Nav.Link ><Link to="/login">Store</Link></Nav.Link>}
-            <Nav.Link ><Link to="/about">About</Link></Nav.Link>
-            <Nav.Link><Link to="/contactUs">Contact Us</Link></Nav.Link>
-            {!authCtx.isLoggedIn && <Nav.Link><Link to="/login">Login</Link></Nav.Link>}
+          <Nav className="mx-auto">
+            <Nav.Link>
+              <Link to="/">Home</Link>
+            </Nav.Link>
+            {authCtx.isLoggedIn ? (
+              <Nav.Link>
+                <Link to="/store">Store</Link>
+              </Nav.Link>
+            ) : (
+              <Nav.Link>
+                <Link to="/login">Store</Link>
+              </Nav.Link>
+            )}
+            <Nav.Link>
+              <Link to="/about">About</Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/contactUs">Contact Us</Link>
+            </Nav.Link>
+            {!authCtx.isLoggedIn && (
+              <Nav.Link>
+                <Link to="/login">Login</Link>
+              </Nav.Link>
+            )}
           </Nav>
           <Button onClick={toggleCart} variant="outline-primary">
-           <div>
-            Cart
-            <span>{quantity}</span>
+            <div>
+              Cart
+              <span>{quantity}</span>
             </div>
           </Button>
         </Container>
@@ -83,38 +96,38 @@ const Home = () => {
         </Container>
       </Navbar>
       <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              marginTop: "2rem",
-            }}
-          >
-            <div
-              style={{
-                border: "1px solid blue",
-                padding: "1rem",
-              }}
-            >
-              <p>Get out Latest Album</p>
-            </div>
-            <Button
-              variant="outline-primary"
-              size="lg"
-              style={{ 
-                marginTop: "1rem",
-                borderRadius: "50%",
-                width: "50px",
-                height: "50px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-               }}
-            >
-              <FaPlay />
-            </Button>
-          </div>
-          <br></br>
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: "2rem",
+        }}
+      >
+        <div
+          style={{
+            border: "1px solid blue",
+            padding: "1rem",
+          }}
+        >
+          <p>Get out Latest Album</p>
+        </div>
+        <Button
+          variant="outline-primary"
+          size="lg"
+          style={{
+            marginTop: "1rem",
+            borderRadius: "50%",
+            width: "50px",
+            height: "50px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <FaPlay />
+        </Button>
+      </div>
+      <br></br>
       <Container>
         <h1
           style={{
@@ -124,20 +137,16 @@ const Home = () => {
           }}
         >
           <b>TOURS</b>
-        </h1> 
+        </h1>
 
         {tours.map((tour, index) => (
-        <div key={index} className="tour-line">
-          <TourItem date={tour.date} city={tour.city} venue={tour.venue} />
-        </div>
-      ))}
-
+          <div key={index} className="tour-line">
+            <TourItem date={tour.date} city={tour.city} venue={tour.venue} />
+          </div>
+        ))}
       </Container>
       {isCartOpen && (
-        <Cart
-          show={isCartOpen}
-          onHide={() => setIsCartOpen(false)}
-        />
+        <Cart show={isCartOpen} onHide={() => setIsCartOpen(false)} />
       )}
       <footer>
         <Container fluid style={{ backgroundColor: "skyblue", width: "100%" }}>
@@ -161,9 +170,9 @@ const Home = () => {
             </Col>
           </Row>
         </Container>
-      </footer> 
+      </footer>
     </CartProvider>
   );
-}
+};
 
 export default Home;

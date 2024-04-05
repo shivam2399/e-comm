@@ -3,6 +3,7 @@ import CartContext from "./cart-context";
 
 const CartProvider = (props) => {
   const [items, setItems] = useState([]);
+  const [cartLength, setCartLength] = useState(0)
 
   const availableProducts = [
     {
@@ -37,6 +38,7 @@ const CartProvider = (props) => {
 
   const addItemToCartHandler = item => {
     setItems([...items, item]);
+    setCartLength(items.length + 1);
   }
 
   const removeItemFromCartHandler = id => {
@@ -50,6 +52,7 @@ const CartProvider = (props) => {
         newItems.splice(itemIndex, 1);
     }
     setItems(newItems);
+    setCartLength(items.length - 1)
 }
   const getTotalItems = () => {
     return items.reduce((total, item) => total + item.quantity, 0)
@@ -58,6 +61,7 @@ const CartProvider = (props) => {
   const cartContext = {
     availableItems: availableProducts,
     items: items,
+    cartLength: cartLength,
     getTotalItems: getTotalItems,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,

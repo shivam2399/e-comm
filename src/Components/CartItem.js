@@ -1,14 +1,29 @@
 import React, { useContext } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import CartContext from '../Store/cart-context';
+import AuthContext from '../Store/auth-context';
+import axios from "axios";
 
 function CartItem({ id, name, price, quantity, imageUrl }) {
   
   const cartCtx = useContext(CartContext);
+  const authCtx = useContext(AuthContext)
+  const removeSymbols = (email) => {
+    return email.replace(/[@.]/g, '')
+  }
+  const mailId = removeSymbols(authCtx.mail)
 
 
   const handleRemoveFromCart = () => {
     cartCtx.removeItem(id);
+
+    axios.delete(`https://crudcrud.com/api/eac19b813c66453797059270451d145c/data${mailId}`)
+      .then(response => {
+        console.log("Item removed successfully:", response.data);
+      })
+      .catch(error => {
+        console.error("Error removing item:", error);
+      });
   };
 
   return (

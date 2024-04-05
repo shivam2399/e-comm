@@ -11,7 +11,7 @@ import AuthContext from "../Store/auth-context";
 const Store = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const [quantity, setQuantity] = useState(0);
+  // const [quantity, setQuantity] = useState(0);
 
   const cartCtx = useContext(CartContext);
   const authCtx = useContext(AuthContext);
@@ -33,7 +33,7 @@ const Store = () => {
           </Nav>
           <Button onClick={toggleCart} variant="outline-primary">
             <div>
-              <span>{quantity}</span>
+              <span>{cartCtx.cartLength}</span>
             </div>
             Cart
           </Button>
@@ -47,7 +47,7 @@ const Store = () => {
       >
         <Container>
           <Nav className="mx-auto">
-            {console.log(cartCtx.getTotalItems)}
+            {console.log(cartCtx.getTotalItems())}
             <Navbar.Brand style={{ fontFamily: "Serif", fontSize: "50px" }}>
               <b>THE GENERICS</b>
             </Navbar.Brand>

@@ -1,22 +1,32 @@
-import React, { useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./Cart.css";
 import CartItem from "./CartItem";
 import { Button, Modal } from "react-bootstrap";
 import CartContext from "../Store/cart-context";
+import AuthContext from "../Store/auth-context";
+import axios from "axios";
 
 function Cart({ show, onHide }) {
   const cartCtx = useContext(CartContext)
+  const authCtx = useContext(AuthContext)
+  const [cartItems, setCartItems] = useState([]);
+  const removeSymbols = (email) => {
+    return email.replace(/[@.]/g, '')
+  }
+  const mailId = removeSymbols(authCtx.mail)
 
-  const addToCartHandler = (item) => {
-    const existingCartItem = cartCtx.items.find((cartItem) => cartItem.id === item.id);
-    if (existingCartItem) {
-      existingCartItem.quantity += 1;
-    } else {
-      cartCtx.items.push({ ...item, quantity: 1 });
-    }
-  };
-  
-  const cartItems = cartCtx.items.map((item) => (
+  useEffect(() => {
+    axios.get(`https://crudcrud.com/api/eac19b813c66453797059270451d145c/data${mailId}`)
+      .then(response => {
+        setCartItems(response.data); 
+      })
+      .catch(error => {
+        console.error("Error fetching cart items:", error);
+      });
+  }, []);
+
+
+  const cartItms = cartItems.map((item) => (
     <CartItem
       key={item.id}
       item={item}
@@ -25,7 +35,6 @@ function Cart({ show, onHide }) {
       price={item.price}
       quantity={item.quantity}
       imageUrl={item.imageUrl}
-      onAddToCart={addToCartHandler}
     />
   ));
 
@@ -60,7 +69,7 @@ function Cart({ show, onHide }) {
             handleQuantityChange={handleQuantityChange}
           />
         ))} */}
-        {cartItems}
+        {cartItms}
         <div className="cart-total">
           <h4 style={{ textAlign: "right" }}>
             <b>Total: ₹{totalPrice}</b>
