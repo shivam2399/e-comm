@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
+import React, { Suspense } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Home from './Components/Home';
-import About from './Components/About';
-import Store from './Components/Store';
-import ContactUs from './Components/ContactUs';
-import ProductDetail from './Components/ProductDetal';
-import Login from './Components/Login';
+const Home = React.lazy(() => import('./Components/Home'));
+const About = React.lazy(() => import('./Components/About'));
+const Store = React.lazy(() => import('./Components/Store'));
+const ContactUs = React.lazy(() => import('./Components/ContactUs'));
+const ProductDetail = React.lazy(() => import('./Components/ProductDetal'));
+const Login = React.lazy(() => import('./Components/Login'));
 
 
 
@@ -19,7 +19,11 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
-  return <RouterProvider router={router} />
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <RouterProvider router={router} />
+    </Suspense>
+  )
 }
 
 export default App

@@ -10,13 +10,14 @@ function Cart({ show, onHide }) {
   const cartCtx = useContext(CartContext)
   const authCtx = useContext(AuthContext)
   const [cartItems, setCartItems] = useState([]);
+
   const removeSymbols = (email) => {
     return email.replace(/[@.]/g, '')
   }
   const mailId = removeSymbols(authCtx.mail)
 
   useEffect(() => {
-    axios.get(`https://crudcrud.com/api/eac19b813c66453797059270451d145c/data${mailId}`)
+    axios.get(`https://crudcrud.com/api/5fe8e3d5c5574e66bfbcdb0f372e9594/data${mailId}`)
       .then(response => {
         setCartItems(response.data); 
       })
@@ -38,7 +39,7 @@ function Cart({ show, onHide }) {
     />
   ));
 
-  const totalPrice = cartCtx.items.reduce((totalPrice, item) => {
+  const totalPrice = cartItems.reduce((totalPrice, item) => {
     return totalPrice + (parseInt(item.quantity) * item.price);
   }, 0);
 
@@ -60,15 +61,6 @@ function Cart({ show, onHide }) {
           <div className="cart-price-header header-style">Price</div>
           <div className="cart-quantity-header header-style">Quantity</div>
         </div>
-        {/* {cartItems.map((item, index) => (
-          <CartItem
-            key={index}
-            item={item}
-            index={index}
-            removeFromCart={C}
-            handleQuantityChange={handleQuantityChange}
-          />
-        ))} */}
         {cartItms}
         <div className="cart-total">
           <h4 style={{ textAlign: "right" }}>

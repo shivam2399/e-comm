@@ -15,7 +15,7 @@ function CartItem({ id, name, price, quantity, imageUrl }) {
 
 
   const handleRemoveFromCart = () => {
-    cartCtx.removeItem(id);
+    cartCtx.removeItem(id); 
 
     axios.delete(`https://crudcrud.com/api/eac19b813c66453797059270451d145c/data${mailId}`)
       .then(response => {

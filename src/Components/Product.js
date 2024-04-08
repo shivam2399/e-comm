@@ -11,7 +11,7 @@ function Product({ product }) {
   const cartCtx = useContext(CartContext);
   const authCtx = useContext(AuthContext);
 
-  const [quantity, setQuantity] = useState(cartCtx.items.length)
+  // const [quantity, setQuantity] = useState(cartCtx.items.length)
 
   const removeSymbols = (email) => {
     return email.replace(/[@.]/g, '')
@@ -38,7 +38,7 @@ function Product({ product }) {
       quantity: quantity,
     };
 
-    axios.post(`https://crudcrud.com/api/eac19b813c66453797059270451d145c/data${mailId}`, data)
+    axios.post(`https://crudcrud.com/api/5fe8e3d5c5574e66bfbcdb0f372e9594/data${mailId}`, data)
       .then(response => {
         console.log("Product added to backend:", response.data);
       })
@@ -46,7 +46,7 @@ function Product({ product }) {
         console.error("Error adding product to backend:", error)
       })
 
-      setQuantity(cartCtx.items.length)
+      // setQuantity(cartCtx.items.length)
   };
 
   return (
